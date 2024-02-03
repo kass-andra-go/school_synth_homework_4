@@ -97,11 +97,11 @@ module shift_register_with_valid
 
     always_ff @ (posedge clk)
     begin
-        if (vld [0]) data [0] <= in_data;
+        if (in_vld) data [0] <= in_data;
         
-        for (int i = 1; i < depth; i++)
+        for (int i = 0; i < depth; i++)
             if (vld [i])
-                data [i] <= data [i - 1];
+                data [i+1] <= data [i];
     end
 
     assign out_data = data [depth - 1];
